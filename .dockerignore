@@ -1,0 +1,10 @@
+# Не копируем в образ
+.git
+.gitignore
+.dockerignore
+Dockerfile
+docker-compose*.yml
+*.md
+.env
+.env.*
+node_modules

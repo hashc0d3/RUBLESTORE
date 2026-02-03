@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RubleStore — Удобные покупки</title>
+  <meta name="description" content="RubleStore — современный маркетплейс с быстрой доставкой и выгодными ценами.">
+
+  <!-- Иконка вкладки (RS) -->
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="favicon.svg">
+
+  <!-- Красивое превью при отправке ссылки (Open Graph). После публикации подставьте полные URL в og:image и og:url, например: https://ваш-сайт.ru/favicon.jpg -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="RubleStore — Удобные покупки">
+  <meta property="og:description" content="Тысячи товаров в одном месте. Безопасная оплата, надёжная доставка и поддержка на каждом шаге.">
+  <meta property="og:image" content="favicon.jpg">
+  <meta property="og:url" content="">
+  <meta property="og:locale" content="ru_RU">
+  <meta property="og:site_name" content="RubleStore">
+
+  <!-- Twitter Card (превью в Twitter/X) -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="RubleStore — Удобные покупки">
+  <meta name="twitter:description" content="Тысячи товаров в одном месте. Безопасная оплата, надёжная доставка и поддержка на каждом шаге.">
+  <meta name="twitter:image" content="favicon.jpg">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Unbounded:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="header">
+    <div class="container header__inner">
+      <a href="#" class="logo">RubleStore</a>
+      <nav class="nav">
+        <span class="nav__brand">RubleStore</span>
+        <a href="#features" class="nav__link">Преимущества</a>
+        <a href="#how" class="nav__link">Как это работает</a>
+        <a href="#cta" class="nav__link">Начать</a>
+      </nav>
+      <button class="burger" aria-label="Меню">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero-video">
+      <video class="hero-video__player" src="RUBLESTORE.mov" autoplay muted loop playsinline></video>
+      <a href="#hero" class="scroll-next" aria-label="К следующему блоку">
+        <svg class="scroll-next__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </a>
+    </section>
+    <section id="hero" class="hero">
+      <div class="hero__bg"></div>
+      <div class="container hero__inner">
+        <h1 class="hero__title">
+          Покупайте выгодно.<br>
+          <span class="hero__title-accent">Доставляем быстро.</span>
+        </h1>
+        <p class="hero__text">
+          Тысячи товаров в одном месте. Безопасная оплата, надёжная доставка и поддержка на каждом шаге.
+        </p>
+        <div class="hero__actions">
+          <a href="#cta" class="btn btn--primary">Перейти в каталог</a>
+          <a href="#features" class="btn btn--outline">Узнать больше</a>
+        </div>
+      </div>
+      <a href="#features" class="scroll-next" aria-label="К следующему блоку">
+        <svg class="scroll-next__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </a>
+    </section>
+
+    <section id="features" class="features">
+      <div class="container">
+        <h2 class="section-title">Почему RubleStore</h2>
+        <div class="features__grid">
+          <article class="feature-card">
+            <div class="feature-card__icon">🚚</div>
+            <h3 class="feature-card__title">Быстрая доставка</h3>
+            <p class="feature-card__text">Доставка по всей стране за 1–5 дней. Отслеживание заказа в реальном времени.</p>
+          </article>
+          <article class="feature-card">
+            <div class="feature-card__icon">🔒</div>
+            <h3 class="feature-card__title">Безопасная оплата</h3>
+            <p class="feature-card__text">Защищённые платежи и гарантия возврата. Покупайте без риска.</p>
+          </article>
+          <article class="feature-card">
+            <div class="feature-card__icon">💬</div>
+            <h3 class="feature-card__title">Поддержка 24/7</h3>
+            <p class="feature-card__text">Ответим на любой вопрос в чате или по телефону в любое время.</p>
+          </article>
+        </div>
+      </div>
+      <a href="#how" class="scroll-next" aria-label="К следующему блоку">
+        <svg class="scroll-next__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </a>
+    </section>
+
+    <section id="how" class="how">
+      <div class="container">
+        <h2 class="section-title">Как это работает</h2>
+        <ol class="how__steps">
+          <li class="how__step">
+            <span class="how__step-num">1</span>
+            <div>
+              <h3>Выберите товар</h3>
+              <p>Листайте каталог или воспользуйтесь поиском — у нас сотни позиций.</p>
+            </div>
+          </li>
+          <li class="how__step">
+            <span class="how__step-num">2</span>
+            <div>
+              <h3>Оформите заказ</h3>
+              <p>Выбрать товар и напишите нам. Всё просто.</p>
+            </div>
+          </li>
+          <li class="how__step">
+            <span class="how__step-num">3</span>
+            <div>
+              <h3>Получите доставку</h3>
+              <p>Мы отправим заказ в день оформления или заберите его у нас. Отслеживайте статус в личном кабинете.</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+      <a href="#cta" class="scroll-next" aria-label="К следующему блоку">
+        <svg class="scroll-next__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </a>
+    </section>
+
+    <section id="cta" class="cta">
+      <div class="container">
+        <div class="cta__box">
+          <h2 class="cta__title">Готовы начать?</h2>
+          <p class="cta__text">Присоединяйтесь к тысячам довольных покупателей. Наши менеджеры помогут вам с выбором и оформлением заказа.</p>
+          <div class="cta__actions">
+            <a href="https://www.avito.ru/brands/rublestore/all?src=search_seller_info&iid=7702092714&sellerId=4d000ce2ffbafc9d755a78bce37ff6d2" class="btn btn--avito" target="_blank" rel="noopener noreferrer">AVITO</a>
+            <a href="https://t.me/rublestore" class="btn btn--telegram" target="_blank" rel="noopener noreferrer">TELEGRAM</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer id="footer" class="footer">
+    <div class="container footer__inner">
+      <a href="#" class="logo logo--footer">RubleStore</a>
+      <p class="footer__copy">© 2026 RubleStore. Все права защищены.</p>
+      <nav class="footer__nav">
+        <a href="#">Политика конфиденциальности</a>
+        <a href="#">Условия использования</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
