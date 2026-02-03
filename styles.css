@@ -159,6 +159,10 @@ img {
   background: var(--color-bg);
 }
 
+.prices {
+  background: var(--color-zebra-light);
+}
+
 .footer {
   background: var(--color-zebra-light);
 }
@@ -906,10 +910,139 @@ img {
   }
 }
 
+/* ===== Прайс ===== */
+.prices {
+  padding: 100px 0;
+}
+
+.prices__grid {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 32px;
+  margin-bottom: 40px;
+}
+
+.prices__img {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  max-height: 70vh;
+  object-fit: contain;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.prices__img:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+}
+
+.prices__note {
+  text-align: center;
+  font-size: 1.05rem;
+  color: var(--color-text-muted);
+  max-width: 480px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+  .prices {
+    padding: 64px 0;
+  }
+
+  .prices__grid {
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 24px;
+    margin-bottom: 28px;
+  }
+
+  .prices__img {
+    width: 100%;
+    max-width: 100%;
+    max-height: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .prices {
+    padding: 48px 0;
+  }
+
+  .prices__grid {
+    gap: 20px;
+    margin-bottom: 24px;
+  }
+
+  .prices__img {
+    border-radius: var(--radius);
+  }
+
+  .prices__note {
+    font-size: 1rem;
+    padding: 0 8px;
+  }
+}
+
 /* ===== Footer ===== */
 .footer {
   padding: 40px 0;
   border-top: 1px solid var(--color-border);
+}
+
+/* ===== Map ===== */
+.map {
+  width: 100%;
+  background: var(--color-bg);
+}
+
+.map__title {
+  margin: 0;
+  padding: 24px 24px 16px;
+  text-align: center;
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.map__title a {
+  color: var(--color-text-muted);
+  transition: color var(--transition);
+}
+
+.map__title a:hover {
+  color: var(--color-accent);
+}
+
+.map__container {
+  width: 100%;
+  height: 460px;
+  background: var(--color-surface);
+  cursor: grab;
+}
+
+.map__container:active {
+  cursor: grabbing;
+}
+
+@media (max-width: 768px) {
+  .map__container {
+    height: 360px;
+  }
+}
+
+@media (max-width: 480px) {
+  .map__container {
+    height: 300px;
+  }
 }
 
 .footer__inner {

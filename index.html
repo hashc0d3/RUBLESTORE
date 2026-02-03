@@ -28,6 +28,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Unbounded:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -144,6 +145,27 @@
           </div>
         </div>
       </div>
+      <a href="#prices" class="scroll-next" aria-label="К следующему блоку">
+        <svg class="scroll-next__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </a>
+    </section>
+
+    <section id="prices" class="prices">
+      <div class="container">
+        <h2 class="section-title">Прайс</h2>
+        <div class="prices__grid">
+          <img src="price1.jpg" alt="Прайс-лист 1" class="prices__img" loading="lazy">
+          <img src="price2.jpg" alt="Прайс-лист 2" class="prices__img" loading="lazy">
+        </div>
+        <p class="prices__note">Для уточнения цен и наличия пишите или звоните.</p>
+      </div>
+    </section>
+
+    <section id="map" class="map">
+      <p class="map__title">
+        <a href="https://2gis.ru/omsk/firm/70000001083382859" target="_blank" rel="noopener noreferrer">Мы в 2ГИС</a>
+      </p>
+      <div id="map-container" class="map__container"></div>
     </section>
   </main>
 
@@ -158,6 +180,20 @@
     </div>
   </footer>
 
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
   <script src="script.js"></script>
+  <script>
+    (function () {
+      var container = document.getElementById('map-container');
+      if (!container) return;
+      var center = [54.960116, 73.386843];
+      var map = L.map('map-container').setView(center, 16);
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+      }).addTo(map);
+      var marker = L.marker(center).addTo(map).bindPopup('<b>RubleStore</b><br>БЦ Новый Дом, пр. Карла Маркса, 41/1, Омск');
+      marker.openPopup();
+    })();
+  </script>
 </body>
 </html>
