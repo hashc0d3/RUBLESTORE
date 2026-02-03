@@ -31,12 +31,14 @@ html {
 
 body {
   font-family: var(--font-body);
-  font-size: 18px;
+  font-size: clamp(16px, 2.5vw, 18px);
   line-height: 1.6;
   color: var(--color-text);
   background: var(--color-bg);
   min-height: 100vh;
   overflow-x: hidden;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
 }
 
 a {
@@ -63,7 +65,7 @@ img {
 
 @media (max-width: 480px) {
   .container {
-    padding: 0 16px;
+    padding: 0 20px;
   }
 }
 
@@ -139,6 +141,17 @@ img {
 }
 
 /* ===== Зебра: темный-светлый-темный-светлый ===== */
+/* При переходе по якорям (меню) секция выравнивается по верхнему краю под шапкой */
+.hero-video,
+.hero,
+.features,
+.how,
+.cta,
+.prices,
+.map {
+  scroll-margin-top: 70px;
+}
+
 .hero-video {
   background: var(--color-bg);
 }
@@ -167,6 +180,46 @@ img {
   background: var(--color-zebra-light);
 }
 
+/* Треугольник — отдельный блок между секциями; при скролле уменьшается до ровной линии */
+/* Фон блока = цвет следующей секции, чтобы треугольник (цвет предыдущей) был виден */
+.section-angle-block {
+  position: relative;
+  height: 48px;
+  margin: 0;
+  overflow: visible;
+  --angle-scale: 1;
+  pointer-events: none;
+}
+
+.section-angle-block--hero { background: var(--color-bg); }
+.section-angle-block--features { background: var(--color-zebra-light); }
+.section-angle-block--how { background: var(--color-bg); }
+.section-angle-block--cta { background: var(--color-zebra-light); }
+.section-angle-block--prices { background: var(--color-bg); }
+.section-angle-block--map { background: var(--color-zebra-light); }
+
+.section-angle-block__triangle {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  margin-left: -50vw;
+  width: 0;
+  height: 0;
+  border-left: 50vw solid transparent;
+  border-right: 50vw solid transparent;
+  border-top: 48px solid;
+  transform: scaleY(var(--angle-scale, 1));
+  transform-origin: top center;
+  transition: transform 0.08s linear;
+}
+
+.section-angle-block--hero .section-angle-block__triangle { border-top-color: var(--color-zebra-light); }
+.section-angle-block--features .section-angle-block__triangle { border-top-color: var(--color-bg); }
+.section-angle-block--how .section-angle-block__triangle { border-top-color: var(--color-zebra-light); }
+.section-angle-block--cta .section-angle-block__triangle { border-top-color: var(--color-bg); }
+.section-angle-block--prices .section-angle-block__triangle { border-top-color: var(--color-zebra-light); }
+.section-angle-block--map .section-angle-block__triangle { border-top-color: var(--color-bg); }
+
 /* ===== Hero Video ===== */
 .hero-video {
   position: relative;
@@ -174,7 +227,7 @@ img {
   max-width: 100vw;
   height: 100vh;
   min-height: 100vh;
-  overflow: hidden;
+  overflow: visible;
   box-sizing: border-box;
 }
 
@@ -194,15 +247,15 @@ img {
   }
 
   .hero {
-    padding-top: 80px;
+    padding-top: 24px;
   }
 
   .hero__inner {
-    padding-top: 76px;
+    padding-top: 24px;
   }
 
   .features {
-    padding-top: 72px;
+    padding-top: 24px;
   }
 }
 
@@ -303,16 +356,25 @@ img {
 /* ===== Hero ===== */
 .hero {
   position: relative;
-  min-height: 100vh;
+  min-height: 80vh;
   display: flex;
   align-items: center;
-  padding: 120px 0 80px;
+  padding: 100px 0 100px;
+}
+
+/* Базовые стили блока печати — до медиазапросов, чтобы они могли переопределять высоту */
+.hero__title--typewriter {
+  animation: fadeInUp 0.5s ease both;
+  height: 3.5em;
+  min-height: 3.5em;
+  box-sizing: border-box;
+  max-width: 100%;
 }
 
 @media (max-width: 768px) {
   .hero {
-    min-height: auto;
-    padding: 60px 0 64px;
+    min-height: 80vh;
+    padding: 32px 0 40px;
     text-align: center;
   }
 
@@ -327,6 +389,12 @@ img {
     max-width: none;
     font-size: clamp(2rem, 8vw, 2.5rem);
     margin-bottom: 20px;
+    margin-top: 40px;
+  }
+
+  .hero__title--typewriter {
+    height: 4em;
+    min-height: 4em;
   }
 
   .hero__text {
@@ -347,13 +415,29 @@ img {
   }
 }
 
+@media (max-width: 550px) {
+  .hero__title--typewriter {
+    height: 5.25em;
+    min-height: 5.25em;
+  }
+
+  .hero .hero__inner {
+    padding-bottom: 8px;
+  }
+}
+
 @media (max-width: 480px) {
   .hero {
-    padding: 40px 0 56px;
+    padding: 24px 0 32px;
   }
 
   .hero__title {
     font-size: clamp(1.75rem, 7vw, 2.25rem);
+  }
+
+  .hero__title--typewriter {
+    height: 5.25em;
+    min-height: 5.25em;
   }
 }
 
@@ -379,22 +463,55 @@ img {
   letter-spacing: -0.03em;
   margin-bottom: 24px;
   max-width: 14ch;
+  width: 100%;
 }
 
 .hero__title-accent {
   color: var(--color-accent);
   display: inline-block;
-  animation: fadeInUp 0.8s ease 0.2s both;
+}
+
+.hero__title--typewriter .hero__title-accent {
+  animation: none;
 }
 
 .hero__title {
   animation: fadeInUp 0.8s ease both;
 }
 
+/* Высота .hero__title--typewriter задаётся выше, до медиазапросов */
+.hero__title--typewriter {
+  animation: fadeInUp 0.5s ease both;
+  box-sizing: border-box;
+  max-width: 100%;
+}
+
+/* Курсор эффекта печати */
+.hero__cursor {
+  display: inline-block;
+  margin-left: 2px;
+  color: var(--color-accent);
+  font-weight: 400;
+  animation: hero-cursor-blink 0.9s step-end infinite;
+}
+
+@keyframes hero-cursor-blink {
+  50% { opacity: 0; }
+}
+
+.how__cursor {
+  display: inline-block;
+  margin-left: 2px;
+  color: var(--color-accent);
+  font-weight: 400;
+  animation: hero-cursor-blink 0.9s step-end infinite;
+}
+
 .hero__text {
-  font-size: 1.15rem;
+  font-size: clamp(1rem, 1.5vw, 1.15rem);
   color: var(--color-text-muted);
-  max-width: 480px;
+  max-width: min(480px, 100%);
+  width: 100%;
   margin-bottom: 40px;
   animation: fadeInUp 0.8s ease 0.15s both;
 }
@@ -446,6 +563,11 @@ img {
 .how,
 .cta {
   position: relative;
+  min-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding-top: 40px;
 }
 
 @media (max-width: 768px) {
@@ -502,6 +624,14 @@ img {
 @keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
+}
+
+/* Цикл появления карточек: по одной слева направо, затем сброс */
+@keyframes featureCardCycle {
+  0% { opacity: 0; transform: translateY(20px); }
+  12% { opacity: 1; transform: translateY(0); }
+  72% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(20px); }
 }
 
 @keyframes spin {
@@ -572,13 +702,17 @@ img {
 @media (max-width: 480px) {
   .section-title {
     margin-bottom: 24px;
-    font-size: 1.4rem;
+    font-size: clamp(1.25rem, 5vw, 1.4rem);
   }
 }
 
 /* ===== Features ===== */
 .features {
-  padding: 100px 0;
+  padding: 40px 0 0;
+  min-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
 }
 
 .features__grid {
@@ -591,13 +725,18 @@ img {
   background: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
-  padding: 32px;
+  padding: 48px 32px;
   transition: var(--transition);
+  animation: featureCardCycle 6s ease-in-out infinite both;
 }
+
+.feature-card:nth-child(1) { animation-delay: 0s; }
+.feature-card:nth-child(2) { animation-delay: 0.4s; }
+.feature-card:nth-child(3) { animation-delay: 0.8s; }
 
 @media (max-width: 768px) {
   .features {
-    padding: 64px 0;
+    padding: 32px 0 40px;
   }
 
   .features__grid {
@@ -606,12 +745,7 @@ img {
   }
 
   .feature-card {
-    padding: 24px;
-  }
-
-  .feature-card__icon {
-    font-size: 2rem;
-    margin-bottom: 16px;
+    padding: 36px 24px;
   }
 
   .feature-card__title {
@@ -625,11 +759,11 @@ img {
 
 @media (max-width: 480px) {
   .features {
-    padding: 48px 0;
+    padding: 24px 0 32px;
   }
 
   .feature-card {
-    padding: 20px;
+    padding: 32px 20px;
   }
 }
 
@@ -637,11 +771,6 @@ img {
   background: var(--color-surface-elevated);
   border-color: rgba(255, 255, 255, 0.2);
   transform: translateY(-4px);
-}
-
-.feature-card__icon {
-  font-size: 2.5rem;
-  margin-bottom: 20px;
 }
 
 .feature-card__title {
@@ -659,7 +788,13 @@ img {
 
 /* ===== How ===== */
 .how {
-  padding: 100px 0;
+  padding: 40px 0 0;
+  min-height: 80vh;
+  max-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  overflow-y: auto;
 }
 
 .how__steps {
@@ -706,12 +841,16 @@ img {
 
 @media (max-width: 768px) {
   .how {
-    padding: 64px 0;
+    padding: 32px 0 40px;
+    min-height: auto;
+    max-height: none;
+    overflow: visible;
   }
 
   .how__step {
     gap: 16px;
     padding: 20px 0;
+    min-height: 100px;
   }
 
   .how__step-num {
@@ -722,16 +861,23 @@ img {
 
   .how__step h3 {
     font-size: 1.05rem;
+    min-height: 1.6em;
+    line-height: 1.3;
   }
 
   .how__step p {
     font-size: 0.9rem;
+    min-height: 3.8em;
+    line-height: 1.4;
   }
 }
 
 @media (max-width: 480px) {
   .how {
-    padding: 48px 0;
+    padding: 24px 0 32px;
+    min-height: auto;
+    max-height: none;
+    overflow: visible;
   }
 
   .how__step {
@@ -739,16 +885,29 @@ img {
     gap: 12px;
     padding: 24px 0;
     text-align: center;
+    min-height: 110px;
   }
 
   .how__step-num {
     margin: 0 auto;
   }
+
+  .how__step h3 {
+    min-height: 1.6em;
+  }
+
+  .how__step p {
+    min-height: 4em;
+  }
 }
 
 /* ===== CTA ===== */
 .cta {
-  padding: 100px 0;
+  padding: 40px 0 0;
+  min-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
 }
 
 .cta__box {
@@ -854,7 +1013,7 @@ img {
 
 @media (max-width: 768px) {
   .cta {
-    padding: 64px 0;
+    padding: 32px 0 40px;
   }
 
   .cta__box {
@@ -897,7 +1056,7 @@ img {
 
 @media (max-width: 480px) {
   .cta {
-    padding: 48px 0;
+    padding: 24px 0 32px;
   }
 
   .cta__box {
@@ -912,7 +1071,11 @@ img {
 
 /* ===== Прайс ===== */
 .prices {
-  padding: 100px 0;
+  padding: 40px 0 0;
+  min-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
 }
 
 .prices__grid {
@@ -956,7 +1119,7 @@ img {
 
 @media (max-width: 768px) {
   .prices {
-    padding: 64px 0;
+    padding: 32px 0 40px;
   }
 
   .prices__grid {
@@ -976,7 +1139,7 @@ img {
 
 @media (max-width: 480px) {
   .prices {
-    padding: 48px 0;
+    padding: 24px 0 32px;
   }
 
   .prices__grid {
@@ -1005,11 +1168,13 @@ img {
   position: relative;
   z-index: 1;
   width: 100%;
-  padding: 80px 0 60px;
+  min-height: 80vh;
+  padding: 40px 0 0;
   background: var(--color-bg);
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: flex-start;
   text-align: center;
   box-sizing: border-box;
 }
@@ -1061,7 +1226,7 @@ img {
 
 @media (max-width: 768px) {
   .map {
-    padding: 60px 24px;
+    padding: 32px 24px 40px;
   }
 
   .map__container {
@@ -1071,7 +1236,7 @@ img {
 
 @media (max-width: 480px) {
   .map {
-    padding: 48px 0 40px;
+    padding: 24px 0 32px;
   }
 
   .map__title,
