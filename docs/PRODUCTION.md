@@ -99,9 +99,57 @@ sudo certbot --nginx -d rublestore.ru -d www.rublestore.ru
 
 Следуйте подсказкам (email, согласие с условиями). Certbot настроит редирект HTTP → HTTPS.
 
+**Если certbot выдаёт `AttributeError: can't set attribute`** — используйте режим standalone:
+
+```bash
+# 1. Временно остановить nginx
+sudo systemctl stop nginx
+
+# 2. Получить сертификат (certbot поднимет свой временный веб-сервер на 80)
+sudo certbot certonly --standalone -d rublestore.ru -d www.rublestore.ru
+
+# 3. Запустить nginx обратно
+sudo systemctl start nginx
+```
+
+Затем вручную добавьте HTTPS в конфиг nginx (см. ниже блок `server { listen 443 ... }` в разделе «Ручная настройка SSL»).
+
 Проверка:
 - https://rublestore.ru
 - https://www.rublestore.ru
+
+---
+
+### Ручная настройка SSL (если использовали certbot --standalone)
+
+После получения сертификата отредактируйте `/etc/nginx/sites-available/rublestore.ru`:
+
+```nginx
+server {
+    listen 80;
+    server_name rublestore.ru www.rublestore.ru;
+    return 301 https://$host$request_uri;
+}
+
+server {
+    listen 443 ssl;
+    server_name rublestore.ru www.rublestore.ru;
+
+    ssl_certificate     /etc/letsencrypt/live/rublestore.ru/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/rublestore.ru/privkey.pem;
+
+    location / {
+        proxy_pass http://127.0.0.1:3002;
+        proxy_http_version 1.1;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+}
+```
+
+Затем: `sudo nginx -t && sudo systemctl reload nginx`
 
 ---
 

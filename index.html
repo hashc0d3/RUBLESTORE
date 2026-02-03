@@ -162,10 +162,10 @@
     </section>
 
     <section id="map" class="map">
-      <p class="map__title">
-        <a href="https://2gis.ru/omsk/firm/70000001083382859" target="_blank" rel="noopener noreferrer">Мы в 2ГИС</a>
-      </p>
+      <h2 class="map__title">Мы в 2ГИС</h2>
       <div id="map-container" class="map__container"></div>
+      <p class="map__address">БЦ Новый Дом, пр. Карла Маркса, 41/1, Омск</p>
+      <a href="https://2gis.ru/omsk/firm/70000001083382859" class="btn btn--primary map__btn" target="_blank" rel="noopener noreferrer">Открыть в 2ГИС</a>
     </section>
   </main>
 
@@ -187,10 +187,8 @@
       var container = document.getElementById('map-container');
       if (!container) return;
       var center = [54.960116, 73.386843];
-      var map = L.map('map-container').setView(center, 16);
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-      }).addTo(map);
+      var map = L.map('map-container', { attributionControl: false }).setView(center, 16);
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
       var marker = L.marker(center).addTo(map).bindPopup('<b>RubleStore</b><br>БЦ Новый Дом, пр. Карла Маркса, 41/1, Омск');
       marker.openPopup();
     })();

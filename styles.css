@@ -1001,47 +1001,80 @@ img {
 /* ===== Map ===== */
 .map {
   width: 100%;
+  padding: 80px 0 60px;
   background: var(--color-bg);
+  text-align: center;
 }
 
 .map__title {
-  margin: 0;
-  padding: 24px 24px 16px;
-  text-align: center;
+  margin: 0 0 24px;
+  padding: 0 24px;
   font-family: var(--font-heading);
-  font-weight: 600;
-  font-size: 1.1rem;
-}
-
-.map__title a {
-  color: var(--color-text-muted);
-  transition: color var(--transition);
-}
-
-.map__title a:hover {
-  color: var(--color-accent);
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: var(--color-text);
 }
 
 .map__container {
   width: 100%;
-  height: 460px;
-  background: var(--color-surface);
-  cursor: grab;
+  height: 400px;
+  margin: 0 0 20px;
+  border: none;
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+  overflow: hidden;
 }
 
-.map__container:active {
-  cursor: grabbing;
+.map__address {
+  margin: 0 0 24px;
+  padding: 0 24px;
+  font-size: 1rem;
+  color: var(--color-text-muted);
+}
+
+.map__btn {
+  min-width: 240px;
+  margin: 0 24px;
+}
+
+/* Скрываем блок атрибуции Leaflet (логотипы/флаги) */
+.leaflet-control-attribution {
+  display: none !important;
 }
 
 @media (max-width: 768px) {
+  .map {
+    padding: 60px 24px;
+  }
+
   .map__container {
-    height: 360px;
+    height: 320px;
   }
 }
 
 @media (max-width: 480px) {
+  .map {
+    padding: 48px 0 40px;
+  }
+
+  .map__title,
+  .map__address {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .map__title {
+    font-size: 1.3rem;
+    margin-bottom: 20px;
+  }
+
   .map__container {
-    height: 300px;
+    height: 280px;
+    margin-bottom: 16px;
+  }
+
+  .map__btn {
+    margin: 0 16px;
   }
 }
 
